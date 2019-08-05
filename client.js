@@ -12,6 +12,25 @@ cardButton.addEventListener('click', function(ev){
     }).then(function(result){
         if(result.error){
             //show error in the payment form
+        } else {
+            //Otherwise we will send the paymentMethod.id to our server
+            fetch('/ajax/confirm_payment', {
+                method: 'POST',
+                headers: {'Content-Type:' 'appplication/json' },
+                body: JSON.stringify({ payment_method_id: result.paymentMethod.id })
+            }).then(function(result) {
+                if(result.error) {
+                //Show error in payment form
+
+                }
+                else{
+                fetch('ajax/confirm_payment', {
+                    method:'POST',
+                    headers: { 'Content-Type': 'application/json'},
+                    body: JSON.stringify({})
+                })
+                }
+            })
         }
     })
 })
